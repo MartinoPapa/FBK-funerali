@@ -1,11 +1,32 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Funerali</ion-title>
+        <ion-grid>
+            <ion-row justify-content-center align-items-center>
+                <ion-col col-6>
+                    <ion-title float-left>Funerali</ion-title>
+                </ion-col>
+                <ion-col col-6>
+                    <ion-button fill="clear" float-right (click)="OpenCloseRicerca()" id="btnOpen" color="light">
+
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
     </ion-toolbar>
 </ion-header>
+
+<ion-searchbar (ionChange)="Ricerca()" placeholder="cerca nominativo" id="ricercaNome" [(ngModel)]="name" clearIcon="false"></ion-searchbar>
+
+<div>
+    <ion-badge color="stars" id="da" style="width: 50%; float: left">
+        <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
+    </ion-badge>
+    <ion-badge color="stars" id="a" style="width: 50%;">
+        <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
+    </ion-badge>
+</div>
+
 <ion-content>
     <dettaglio-morte [funerale]="Funerale" isFunerale={{isFunerale}}></dettaglio-morte>
     <dettaglio-morte [funerale]="Funerale" isFunerale={{isFunerale}}></dettaglio-morte>
 </ion-content>
-
-
