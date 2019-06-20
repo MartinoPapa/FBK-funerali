@@ -14,6 +14,7 @@ export class HomePage {
   isRicercaOpen = false;
   isGiorniOpen = false;
   isFunerale = true;
+  isSepoltura = false;
   linkMappa = "https://www.google.com/maps/search/?api=1&query=";
 
   vetDefunti: TipoDefunto[] = [];
@@ -82,6 +83,7 @@ export class HomePage {
     document.getElementById("funerali").style.display = "inherit";
     document.getElementById("titleSepoltura").style.fontWeight = "300";
     document.getElementById("titleFunerali").style.fontWeight = "600";
+    this.isSepoltura=false;
   }
 
   Sepolture() {
@@ -89,15 +91,19 @@ export class HomePage {
     document.getElementById("funerali").style.display = "none";
     document.getElementById("titleSepoltura").style.fontWeight = "600";
     document.getElementById("titleFunerali").style.fontWeight = "300";
+    this.isSepoltura=true;
   }
 
   OpenCloseRicerca() {
     if (!this.isRicercaOpen) {
       document.getElementById("ricercaNome").style.display = "inherit";
-      document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="close"></ion-icon>';
-      if (this.isGiorniOpen) {
-        document.getElementById("barraGiorni").style.height = "auto";
+      if(this.isSepoltura){
+        document.getElementById("buttonGiorni").style.visibility = "hidden";
       }
+      else{
+        document.getElementById("buttonGiorni").style.visibility = "visible";
+      }
+      document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="close"></ion-icon>';
     }
     else {
       document.getElementById("ricercaNome").style.display = "none";

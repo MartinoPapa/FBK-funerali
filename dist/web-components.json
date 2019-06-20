@@ -1,0 +1,15 @@
+{
+  "tags": [
+    {
+      "label": "dettaglio-morte",
+      "description": "",
+      "attributes": [
+        {
+          "label": "is-funerale",
+          "description": "",
+          "required": false
+        }
+      ]
+    }
+  ]
+}

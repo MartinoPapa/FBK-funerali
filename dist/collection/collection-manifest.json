@@ -1,0 +1,62 @@
+{
+  "components": [
+    {
+      "tag": "dettaglio-morte",
+      "dependencies": [],
+      "componentClass": "Sepoltura",
+      "componentPath": "components/components/dettaglio-morte/dettaglo-morte.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/components/dettaglio-morte/dettaglio-morte.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "defunto",
+          "attr": "defunto"
+        },
+        {
+          "name": "funerale",
+          "attr": "funerale"
+        },
+        {
+          "name": "isFunerale",
+          "type": "Boolean",
+          "attr": "is-funerale"
+        }
+      ],
+      "states": [
+        {
+          "name": "height"
+        },
+        {
+          "name": "transitionDelay"
+        },
+        {
+          "name": "visibilitàCompatta"
+        },
+        {
+          "name": "visibilitàEstesa"
+        }
+      ],
+      "events": [
+        {
+          "event": "indicazioni"
+        },
+        {
+          "event": "share"
+        }
+      ],
+      "shadow": true
+    }
+  ],
+  "collections": [],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "0.18.1",
+    "typescriptVersion": "3.3.3"
+  },
+  "bundles": []
+}
