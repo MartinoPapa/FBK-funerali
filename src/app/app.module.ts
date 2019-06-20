@@ -14,6 +14,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { HttpModule } from '@angular/http';
 import { HomePageModule } from './home/home.module';
 
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,7 @@ import { HomePageModule } from './home/home.module';
             HttpClientModule,HttpModule, AppRoutingModule],
   providers: [
     StatusBar,
+    SocialSharing,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
