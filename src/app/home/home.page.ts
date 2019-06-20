@@ -69,7 +69,6 @@ export class HomePage {
       alert("Il servizio di condivisione non è disponibile per questo dispositivo");
     });
   }
-
   IndicazioniFunerali(i) {
     window.open(encodeURI(this.linkMappa + this.vetFunerali[i].luogoFunerale), '_system')
   }
@@ -83,7 +82,8 @@ export class HomePage {
     document.getElementById("funerali").style.display = "inherit";
     document.getElementById("titleSepoltura").style.fontWeight = "300";
     document.getElementById("titleFunerali").style.fontWeight = "600";
-    this.isSepoltura=false;
+    this.isSepoltura = false;
+    this.CloseRicerca();
   }
 
   Sepolture() {
@@ -91,26 +91,34 @@ export class HomePage {
     document.getElementById("funerali").style.display = "none";
     document.getElementById("titleSepoltura").style.fontWeight = "600";
     document.getElementById("titleFunerali").style.fontWeight = "300";
-    this.isSepoltura=true;
+    this.isSepoltura = true;
+    this.CloseRicerca();
   }
 
   OpenCloseRicerca() {
     if (!this.isRicercaOpen) {
       document.getElementById("ricercaNome").style.display = "inherit";
-      if(this.isSepoltura){
+      if (this.isSepoltura) {
         document.getElementById("buttonGiorni").style.visibility = "hidden";
       }
-      else{
+      else {
         document.getElementById("buttonGiorni").style.visibility = "visible";
       }
       document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="close"></ion-icon>';
+      this.isRicercaOpen = true;
+
     }
     else {
-      document.getElementById("ricercaNome").style.display = "none";
-      document.getElementById("barraGiorni").style.height = "0px";
-      document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="search"></ion-icon>';
+      this.CloseRicerca();
     }
-    this.isRicercaOpen = !this.isRicercaOpen;
+  }
+
+  CloseRicerca() {
+    document.getElementById("ricercaNome").style.display = "none";
+    document.getElementById("barraGiorni").style.height = "0px";
+    document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="search"></ion-icon>';
+    this.isRicercaOpen = false;
+    this.isGiorniOpen = false;
   }
 
   OpenBarraGiorni() {
