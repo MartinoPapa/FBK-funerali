@@ -1,5 +1,5 @@
 //import { defineCustomElements as WcAnteprima } from 'wc-anteprima/loader';
-import { defineCustomElements as wcFunerale } from 'funerale/dist/loader';
+import { defineCustomElements as wcFunerale } from 'wc-dettagliofunerale/dist/loader';
 
 
 export function appInitialize() {

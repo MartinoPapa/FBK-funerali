@@ -1,45 +1,119 @@
 import { Component } from '@angular/core';
 import { TipoDefunto } from '../domain/tipo-defunto';
 import { TipoFunerale } from '../domain/tipo-funerale';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  Defunto: TipoDefunto = new TipoDefunto("Papa Martino", "Mattarello", "oggi", "13 maggio 2001", 14, 98, 13);
-  Funerale: TipoFunerale = new TipoFunerale("Papa Martino", "Mattarello", "oggi", "13 maggio 2001", "34", "3333", "CIao")
-  isFunerale: boolean = true;
-  isFuunerale: boolean = false;
+  Defunto: TipoDefunto = new TipoDefunto("Papa Sepolto", "ieri", "oggi", "Mattarello", 14, 98, 13);
+  Funerale: TipoFunerale = new TipoFunerale("Papa Funerale", "ieri", "oggi", "Trento", "34", "3333", "CIao")
   isRicercaOpen = false;
+  isGiorniOpen = false;
+  isFunerale = true;
+  linkMappa = "https://www.google.com/maps/search/?api=1&query=";
 
-  constructor() {
-  }
+  vetDefunti: TipoDefunto[] = [];
+  vetFunerali: TipoFunerale[] = [];
+
+  date = new Date();
+
+  constructor(private social: SocialSharing) { }
+
   ngOnInit() {
+    this.vetFunerali.push(this.Funerale);
+    this.vetDefunti.push(this.Defunto);
+    document.getElementById("titleSepoltura").style.fontWeight = "300";
+    document.getElementById("titleFunerali").style.fontWeight = "600";
     document.getElementById("ricercaNome").style.display = "none";
-    document.getElementById("da").style.display = "none";
-    document.getElementById("a").style.display = "none";
-    document.getElementById("btnOpen").innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0V0z'/><path d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/></svg>";
+    document.getElementById("barraGiorni").style.height = "0px";
+    document.getElementById("data").innerHTML = this.GetFormattedData();
+    document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="search"></ion-icon>';
+
+  }
+
+  GetFormattedData() {
+    return this.date.getDate() + "/" + this.date.getMonth() + "/" + this.date.getFullYear();
+  }
+
+  NextDay() {
+    this.date.setDate(this.date.getDate() + 1);
+    document.getElementById("data").innerHTML = this.GetFormattedData();
+  }
+
+  PreviusDay() {
+    this.date.setDate(this.date.getDate() - 1);
+    document.getElementById("data").innerHTML = this.GetFormattedData();
   }
 
   Ricerca() {
 
   }
 
+  CondividiFunerali(i) {
+    this.social.canShareViaEmail().then(() => {
+      this.social.share(this.vetFunerali[i].nominativo + " " + this.vetFunerali[i].luogoFunerale, null, null);
+    }).catch(() => {
+      alert("Il servizio di condivisione non è disponibile per questo dispositivo");
+    });
+  }
+
+  CondividSepolture(i) {
+    this.social.canShareViaEmail().then(() => {
+      this.social.share(this.vetDefunti[i].nominativo + " " + this.vetDefunti[i].paeseSepoltura, null, null);
+    }).catch(() => {
+      alert("Il servizio di condivisione non è disponibile per questo dispositivo");
+    });
+  }
+
+  IndicazioniFunerali(i) {
+    window.open(encodeURI(this.linkMappa + this.vetFunerali[i].luogoFunerale), '_system')
+  }
+
+  IndicazioniSepolture(i) {
+    window.open(encodeURI(this.linkMappa + this.vetDefunti[i].paeseSepoltura), '_system')
+  }
+
+  Funerali() {
+    document.getElementById("sepolture").style.display = "none";
+    document.getElementById("funerali").style.display = "inherit";
+    document.getElementById("titleSepoltura").style.fontWeight = "300";
+    document.getElementById("titleFunerali").style.fontWeight = "600";
+  }
+
+  Sepolture() {
+    document.getElementById("sepolture").style.display = "inherit";
+    document.getElementById("funerali").style.display = "none";
+    document.getElementById("titleSepoltura").style.fontWeight = "600";
+    document.getElementById("titleFunerali").style.fontWeight = "300";
+  }
+
   OpenCloseRicerca() {
     if (!this.isRicercaOpen) {
       document.getElementById("ricercaNome").style.display = "inherit";
-      document.getElementById("da").style.display = "inherit";
-      document.getElementById("a").style.display = "inherit";
-      document.getElementById("btnOpen").innerHTML = "<svg width='24' height='24' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0V0z'/><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z'/></svg>";
+      document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="close"></ion-icon>';
+      if (this.isGiorniOpen) {
+        document.getElementById("barraGiorni").style.height = "auto";
+      }
     }
     else {
       document.getElementById("ricercaNome").style.display = "none";
-      document.getElementById("da").style.display = "none";
-      document.getElementById("a").style.display = "none";
-      document.getElementById("btnOpen").innerHTML = "<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='none' d='M0 0h24v24H0V0z'/><path d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/></svg>";
+      document.getElementById("barraGiorni").style.height = "0px";
+      document.getElementById("btnOpen").innerHTML = '<ion-icon color="dark" name="search"></ion-icon>';
     }
     this.isRicercaOpen = !this.isRicercaOpen;
   }
 
+  OpenBarraGiorni() {
+    if (this.isGiorniOpen) {
+      document.getElementById("barraGiorni").style.height = "0px";
+    }
+    else {
+      document.getElementById("barraGiorni").style.height = "auto";
+    }
+    this.isGiorniOpen = !this.isGiorniOpen;
+  }
 }

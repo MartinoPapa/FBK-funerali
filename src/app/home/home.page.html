@@ -1,32 +1,48 @@
 <ion-header>
     <ion-toolbar>
         <ion-grid>
-            <ion-row justify-content-center align-items-center>
-                <ion-col col-6>
-                    <ion-title float-left>Funerali</ion-title>
+            <ion-row align-items-center>
+                <ion-col size="4" (click)="Funerali()">
+                    <ion-title float-left id="titleFunerali">Funerali</ion-title>
                 </ion-col>
-                <ion-col col-6>
-                    <ion-button fill="clear" float-right (click)="OpenCloseRicerca()" id="btnOpen" color="light">
+                <ion-col size="4" (click)="Sepolture()">
+                    <ion-title float-left id="titleSepoltura">Sepolture</ion-title>
 
+                </ion-col>
+                <ion-col size="4">
+                    <ion-button fill="clear" float-right (click)="OpenCloseRicerca()" id="btnOpen" color="light">
                     </ion-button>
                 </ion-col>
             </ion-row>
         </ion-grid>
     </ion-toolbar>
+
+    <ion-row justify-content-center align-items-center id="barraGiorni">
+        <ion-col col-3>
+            <ion-icon name="arrow-dropleft" (click)="PreviusDay()"></ion-icon>
+        </ion-col>
+        <ion-col col-3 id="data">
+
+        </ion-col>
+        <ion-col col-3>
+            <ion-icon name="arrow-dropright" (click)="NextDay()"></ion-icon>
+        </ion-col>
+    </ion-row>
+    
+    <ion-row justify-content-center align-items-center id="ricercaNome">
+        <ion-button id="buttonGiorni" icon-only color="light" (click)="OpenBarraGiorni()">
+            <ion-icon name="calendar"></ion-icon>
+        </ion-button>
+        <ion-searchbar (ionChange)="Ricerca()" placeholder="cerca nominativo" [(ngModel)]="name" clearIcon="false"></ion-searchbar>
+    </ion-row>
 </ion-header>
 
-<ion-searchbar (ionChange)="Ricerca()" placeholder="cerca nominativo" id="ricercaNome" [(ngModel)]="name" clearIcon="false"></ion-searchbar>
-
-<div>
-    <ion-badge color="stars" id="da" style="width: 50%; float: left">
-        <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
-    </ion-badge>
-    <ion-badge color="stars" id="a" style="width: 50%;">
-        <ion-datetime displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
-    </ion-badge>
-</div>
-
 <ion-content>
-    <dettaglio-morte [funerale]="Funerale" isFunerale={{isFunerale}}></dettaglio-morte>
-    <dettaglio-morte [funerale]="Funerale" isFunerale={{isFunerale}}></dettaglio-morte>
+    <div *ngFor="let item of vetFunerali; let i = index;" id="funerali">
+        <dettaglio-morte (indicazioni)="IndicazioniFunerali(i)" (share)="CondividiFunerali(i)" [funerale]="item" isFunerale={{isFunerale}}></dettaglio-morte>
+    </div>
+    <div *ngFor="let item of vetDefunti; let i = index;" id="sepolture" style="display: none;">
+        <dettaglio-morte (indicazioni)="IndicazioniSepolture(i)" (share)="CondividSepolture(i)" [defunto]="item" isFunerale={{!isFunerale}}></dettaglio-morte>
+    </div>
+
 </ion-content>
