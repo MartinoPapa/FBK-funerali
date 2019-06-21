@@ -35,15 +35,28 @@
             <ion-icon name="arrow-dropright" (click)="NextDay()"></ion-icon>
         </ion-col>
     </ion-row>
-     
+
 </ion-header>
 
 <ion-content>
-    <div *ngFor="let item of vetFunerali; let i = index;" id="funerali">
-        <dettaglio-morte (indicazioni)="IndicazioniFunerali(i)" (share)="CondividiFunerali(i)" [funerale]="item" isFunerale={{isFunerale}}></dettaglio-morte>
+    <div id="top"></div>
+    <ion-icon id="buttonTop" (click)="GoOnTop()" color="dark" name="arrow-dropup"></ion-icon>
+    <div id="funerali">
+        <div *ngFor="let item of vetFunerali; let i = index;">
+            <dettaglio-morte (indicazioni)="IndicazioniFunerali(i)" (share)="CondividiFunerali(i)" [funerale]="item"
+                isFunerale={{isFunerale}}></dettaglio-morte>
+        </div>
     </div>
-    <div *ngFor="let item of vetDefunti; let i = index;" id="sepolture" style="display: none;">
-        <dettaglio-morte (indicazioni)="IndicazioniSepolture(i)" (share)="CondividSepolture(i)" [defunto]="item" isFunerale={{!isFunerale}}></dettaglio-morte>
+    <div id="sepolture" style="display: none;">
+        <div *ngFor="let item of vetDefunti; let i = index;">
+            <dettaglio-morte (indicazioni)="IndicazioniSepolture(i)" (share)="CondividSepolture(i)" [defunto]="item"
+                isFunerale={{!isFunerale}}></dettaglio-morte>
+        </div>
     </div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="CaricaDati()" id="scroll">
+        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Sto caricando..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
 
 </ion-content>

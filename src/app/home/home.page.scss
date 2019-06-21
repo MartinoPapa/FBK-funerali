@@ -17,3 +17,18 @@ ion-icon{
     height: 30px;
 }
 
+#scroll{
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+#buttonTop{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    padding: 10px 10px 5px 10px;
+    z-index: 9999;
+}
+

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TipoDefunto } from '../domain/tipo-defunto';
 import { TipoFunerale } from '../domain/tipo-funerale';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   Defunto: TipoDefunto = new TipoDefunto("Papa Sepolto", "ieri", "oggi", "Mattarello", 14, 98, 13);
   Funerale: TipoFunerale = new TipoFunerale("Papa Funerale", "ieri", "oggi", "Trento", "34", "3333", "CIao")
   isRicercaOpen = false;
@@ -25,6 +27,7 @@ export class HomePage {
   constructor(private social: SocialSharing) { }
 
   ngOnInit() {
+    this.vetFunerali.push(this.Funerale);
     this.vetFunerali.push(this.Funerale);
     this.vetDefunti.push(this.Defunto);
     document.getElementById("titleSepoltura").style.fontWeight = "300";
@@ -113,6 +116,14 @@ export class HomePage {
     }
   }
 
+  CaricaDati(){
+    this.vetFunerali.push(this.Funerale);
+    this.vetFunerali.push(this.Funerale);
+    this.vetFunerali.push(this.Funerale);
+    this.vetFunerali.push(this.Funerale);
+    this.infiniteScroll.complete();
+  }
+
   CloseRicerca() {
     document.getElementById("ricercaNome").style.display = "none";
     document.getElementById("barraGiorni").style.height = "0px";
@@ -129,5 +140,9 @@ export class HomePage {
       document.getElementById("barraGiorni").style.height = "auto";
     }
     this.isGiorniOpen = !this.isGiorniOpen;
+  }
+  
+  GoOnTop(){
+    document.getElementById("top").scrollIntoView();
   }
 }
