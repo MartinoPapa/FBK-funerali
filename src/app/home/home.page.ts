@@ -130,6 +130,7 @@ export class HomePage {
 
   //test per l'infinity scroll
   CaricaDati(){
+    //aggiungere controllo sulla variabile isSepoltura
     this.vetFunerali.push(this.Funerale);
     this.vetFunerali.push(this.Funerale);
     this.vetFunerali.push(this.Funerale);
