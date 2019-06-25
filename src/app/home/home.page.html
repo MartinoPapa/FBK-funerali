@@ -43,14 +43,14 @@
     <ion-icon id="buttonTop" (click)="GoOnTop()" color="dark" name="arrow-dropup"></ion-icon>
     <div id="funerali">
         <div *ngFor="let item of vetFunerali; let i = index;">
-            <dettaglio-morte (indicazioni)="IndicazioniFunerali(i)" (share)="CondividiFunerali(i)" [funerale]="item"
-                isFunerale={{isFunerale}}></dettaglio-morte>
+            <dettaglio-morte (indicazioni)="IndicazioniFunerali(i)" (condividi)="CondividiFunerali(i)" [funerale]="item"
+                isFunerale={{true}}></dettaglio-morte>
         </div>
     </div>
     <div id="sepolture" style="display: none;">
         <div *ngFor="let item of vetDefunti; let i = index;">
-            <dettaglio-morte (indicazioni)="IndicazioniSepolture(i)" (share)="CondividSepolture(i)" [defunto]="item"
-                isFunerale={{!isFunerale}}></dettaglio-morte>
+            <dettaglio-morte (indicazioni)="IndicazioniSepolture(i)" (condividi)="CondividSepolture(i)" [defunto]="item"
+                isFunerale={{false}}></dettaglio-morte>
         </div>
     </div>
 
