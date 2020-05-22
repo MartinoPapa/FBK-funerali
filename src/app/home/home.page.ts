@@ -13,8 +13,8 @@ export class HomePage {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  Defunto: TipoDefunto = new TipoDefunto("Papa Sepolto", "ieri", "oggi", "Mattarello", 14, 98, 13); //defunto test
-  Funerale: TipoFunerale = new TipoFunerale("Papa Funerale", "ieri", "oggi", "Trento", "34", "3333", "CIao"); //funerale test
+  Defunto: TipoDefunto = new TipoDefunto("Nome Cognome", "12/04/1950", "14/05/2020", "Mattarello", 14, 98, 13); //defunto test
+  Funerale: TipoFunerale = new TipoFunerale("Nome Cognome", "11/03/1946", "4/05/2020", "Cimitero Mattarello", "Trento", "7/05/2020", "16:55"); //funerale test
   isRicercaOpen = false; //true se la barra di ricerca è aperta
   isGiorniOpen = false; //true se la barra dei giorni è aperta
   isSepoltura = false; //controlla se ci troviamo in schermata funerali o sepoltura
